@@ -1,6 +1,6 @@
 
 function [Output_secs,Output_keyCode,Output_keyIsDown,Output_keyIndex,Output_keyName,Output_ReactionTime]= Nico_KbCheck(keyName,max_time,max_number)
-%V3.0 alpha
+%V3.1 alpha
 % Aimed: solving double-Key tasks.
 % Updated: it can output as KbCheck() in PTB3 with secs correctly , however it includes 2 rows
 %    rather than 1.
@@ -11,9 +11,9 @@ function [Output_secs,Output_keyCode,Output_keyIsDown,Output_keyIndex,Output_key
 %% Example
 % clc;clear;
 % keyName = {'s','a','t'};
-% max_time =5;
-% max_number = 3;
-% [Output_secs,Output_keyCode,Output_keyIsDown,Output_keyIndex,Output_keyName,Output_ReactionTime] = Nico_KbCheck(keyName,max_time,max_number);
+% max_time=5;
+% max_number=3;
+% [Output_secs,Output_keyCode,Output_keyIsDown,Output_keyIndex,Output_keyName,Output_ReactionTime]=Nico_KbCheck(keyName,max_time,max_number);
 % KbName(Output_keyCode(:,1))
 % KbName(Output_keyCode(:,2))
 % KbName(Output_keyCode(:,3))
@@ -70,7 +70,13 @@ while true
 end
 [OupKbIndex,OupSecs,OupKeyIsDown] = split_KbCode(OP_keyCode,OP_keyIsDown,OP_secs);
 [Output_secs,Output_keyCode,Output_keyIsDown,Output_keyIndex,Output_keyName] = sort_as_key(OupKbIndex,OupSecs,OupKeyIsDown,keyName);
-Output_ReactionTime = Output_secs-initial_time;
+for index_RT = 1:length(Output_secs)
+    if Output_secs(index_RT)>0
+        Output_ReactionTime(index_RT) = Output_secs(index_RT)-initial_time;
+    else
+        Output_ReactionTime(index_RT) = 0;
+    end
+end
 end
 function [OupKbIndex,OupSecs,OupKeyIsDown] = split_KbCode(OP_keyCode,OP_keyIsDown,OP_secs)
 t = 1;
