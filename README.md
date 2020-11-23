@@ -1,5 +1,8 @@
 # Nico_KbCheck
 Aimed: solving MULTI-Key tasks.
+## V3.1 alpha
+<br>if keyisdown = 0
+<br>  RT = 0
 
 ## V3.0 alpha
 <br>Aimed: solving double-Key tasks.
